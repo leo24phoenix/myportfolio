@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leo Aljon E. Padilla — IT Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  /* ============================================================
+     TOKEN SYSTEM
+     Color:
+       --ink        #11182B  (primary text / dark surfaces)
+       --paper      #F6F3EC  (page background, "dossier paper")
+       --paper-dim  #ECE7DA  (panel background)
+       --gold       #C8932B  (verification / seal accent)
+       --teal       #34657F  (data / link accent)
+       --line       #D8D2C2  (hairline rule on paper)
+       --muted      #6B6457  (secondary text on paper)
+       --muted-ink  #A8AFC4  (secondary text on ink)
+     Type:
+       Display : Fraunces (serif, editorial authority)
+       Utility : IBM Plex Mono (timestamps, labels, ledger data)
+       Body    : Inter (long-form reading)
+     Signature element:
+       The "verification stamp" — a rotated circular seal that marks
+       every claim (skill, role, certification) as checked, echoing
+       the page's job: letting an HR manager verify credibility fast.
+     ============================================================ */
+
+  :root{
+    --ink:#11182B;
+    --ink-2:#1B2440;
+    --paper:#F6F3EC;
+    --paper-dim:#ECE7DA;
+    --gold:#C8932B;
+    --gold-deep:#9C701C;
+    --teal:#34657F;
+    --line:#D8D2C2;
+    --line-ink:#2C3656;
+    --muted:#6B6457;
+    --muted-ink:#A8AFC4;
+    --radius:2px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px;height:7px;border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 3px rgba(200,147,43,.18);
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;margin:0;letter-spacing:-.01em;}
+
+  /* ---------- Verification stamp (signature element) ---------- */
+  .stamp{
+    --size:54px;
+    width:var(--size);height:var(--size);
+    border-radius:50%;
+    border:1.5px solid currentColor;
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    transform:rotate(-8deg);
+  }
+  .stamp::before{
+    content:"";
+    position:absolute;inset:5px;
+    border:1px dashed currentColor;
+    border-radius:50%;
+    opacity:.55;
+  }
+  .stamp svg{width:42%;height:42%;}
+  .stamp-text{
+    position:absolute;inset:0;
+  }
+  .stamp-text svg{width:100%;height:100%;}
+  .stamp-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:6.6px;
+    letter-spacing:.16em;
+  }
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(246,243,236,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:68px;
+  }
+  .brand{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;font-size:14px;letter-spacing:.04em;
+    display:flex;align-items:center;gap:10px;
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);}
+  nav.links{display:flex;gap:30px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.03em;}
+  nav.links a{color:var(--muted);position:relative;padding:4px 0;}
+  nav.links a:hover{color:var(--ink);}
+  nav.links a:focus-visible, a:focus-visible, button:focus-visible{outline:2px solid var(--teal);outline-offset:3px;}
+  .nav-cta{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    border:1px solid var(--ink);padding:9px 16px;
+    background:transparent;cursor:pointer;
+    letter-spacing:.04em;
+  }
+  .nav-cta:hover{background:var(--ink);color:var(--paper);}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:72px 0 60px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:56px;
+    align-items:center;
+  }
+  .id-card{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:var(--radius);
+    padding:22px;
+    position:relative;
+    box-shadow:0 30px 60px -20px rgba(17,24,43,.45);
+  }
+  .id-card::before{
+    content:"";
+    position:absolute;inset:0;
+    border:1px solid rgba(246,243,236,.14);
+    margin:8px;
+    pointer-events:none;
+  }
+  .id-top{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;letter-spacing:.12em;
+    color:var(--muted-ink);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .id-photo{
+    width:100%;
+    aspect-ratio:4/4.6;
+    background:linear-gradient(160deg,#1F2A4A,#11182B);
+    border:1px solid rgba(246,243,236,.16);
+    position:relative;
+    overflow:hidden;
+  }
+  .id-photo svg{position:absolute;inset:0;width:100%;height:100%;}
+  .id-photo .replace-tag{
+    position:absolute;bottom:10px;left:10px;right:10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9.5px;letter-spacing:.06em;
+    color:var(--muted-ink);
+    background:rgba(17,24,43,.55);
+    padding:6px 8px;
+    border:1px dashed rgba(246,243,236,.3);
+  }
+  .id-meta{
+    margin-top:16px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px 16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+  }
+  .id-meta div span{display:block;color:var(--muted-ink);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;}
+  .id-card .stamp{
+    position:absolute;top:18px;right:18px;
+    color:var(--gold);
+  }
+
+  .hero-copy .eyebrow{margin-bottom:18px;}
+  .hero-copy h1{
+    font-size:clamp(34px,4.6vw,54px);
+    line-height:1.04;
+    margin-bottom:18px;
+  }
+  .hero-copy h1 em{color:var(--gold-deep);font-style:italic;}
+  .hero-copy p.lede{
+    font-size:17px;line-height:1.65;color:var(--muted);
+    max-width:480px;margin-bottom:28px;
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:36px;}
+  .btn-primary,.btn-secondary{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;letter-spacing:.03em;
+    padding:13px 22px;
+    cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary{background:var(--ink);color:var(--paper);border:1px solid var(--ink);}
+  .btn-primary:hover{background:var(--ink-2);}
+  .btn-secondary{background:transparent;border:1px solid var(--ink);color:var(--ink);}
+  .btn-secondary:hover{background:var(--paper-dim);}
+
+  .verify-row{
+    display:flex;gap:28px;flex-wrap:wrap;
+    border-top:1px solid var(--line);padding-top:24px;
+  }
+  .verify-item{display:flex;align-items:center;gap:10px;}
+  .verify-item .stamp{--size:34px;color:var(--teal);}
+  .verify-item .num{font-family:'Fraunces',serif;font-size:21px;font-weight:600;line-height:1;}
+  .verify-item .label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+
+  /* ---------- Section shell ---------- */
+  section{padding:84px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:44px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(26px,3vw,36px);}
+  .section-head .eyebrow{margin-bottom:10px;}
+  .section-note{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);max-width:280px;text-align:right;line-height:1.6;}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .about-grid p{font-size:16px;line-height:1.75;color:var(--ink-2);margin:0 0 16px;}
+  .about-grid p:last-child{margin-bottom:0;}
+  .creds-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+  .creds-list li{
+    display:flex;gap:14px;align-items:flex-start;
+    font-size:14.5px;color:var(--ink-2);
+    padding-bottom:14px;border-bottom:1px solid var(--line);
+  }
+  .creds-list li:last-child{border-bottom:none;padding-bottom:0;}
+  .creds-list .stamp{--size:30px;color:var(--gold);margin-top:1px;}
+  .creds-list strong{font-family:'IBM Plex Mono',monospace;font-weight:600;display:block;font-size:12.5px;letter-spacing:.02em;margin-bottom:3px;}
+
+  /* ---------- Skills ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px 40px;}
+  .skill-cat h3{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:18px;font-weight:600;}
+  .skill-row{margin-bottom:16px;}
+  .skill-row:last-child{margin-bottom:0;}
+  .skill-row .meta{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px;}
+  .skill-row .meta span:last-child{font-family:'IBM Plex Mono',monospace;color:var(--muted);font-size:11px;}
+  .meter{height:5px;background:var(--paper-dim);position:relative;border:1px solid var(--line);}
+  .meter i{position:absolute;inset:0;background:var(--ink);width:0;transition:width 1s cubic-bezier(.2,.8,.2,1);}
+  .meter.filled i{background:linear-gradient(90deg,var(--teal),var(--gold));}
+
+  /* ---------- Experience (ledger) ---------- */
+  .ledger{display:flex;flex-direction:column;}
+  .ledger-item{
+    display:grid;grid-template-columns:160px 1px 1fr;gap:28px;
+    padding:30px 0;border-top:1px solid var(--line);
+  }
+  .ledger-item:first-child{border-top:none;}
+  .ledger-time{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);padding-top:4px;}
+  .ledger-rule{background:var(--line);}
+  .ledger-body h3{font-size:20px;margin-bottom:4px;}
+  .ledger-body .role-meta{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--teal);
+    margin-bottom:14px;display:flex;align-items:center;gap:10px;
+  }
+  .ledger-body .role-meta .stamp{--size:24px;color:var(--gold);}
+  .ledger-body ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:14.5px;line-height:1.65;}
+  .ledger-body li{margin-bottom:6px;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.04em;
+    border:1px solid var(--line);padding:4px 9px;color:var(--muted);
+    background:var(--paper-dim);
+  }
+
+  /* ---------- Projects ---------- */
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .proj-card{
+    border:1px solid var(--line);background:#fff;
+    display:flex;flex-direction:column;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .proj-card:hover{transform:translateY(-4px);box-shadow:0 18px 36px -16px rgba(17,24,43,.22);}
+  .proj-top{
+    padding:20px 20px 0;
+    display:flex;justify-content:space-between;align-items:flex-start;
+  }
+  .proj-top .stamp{--size:30px;color:var(--gold);}
+  .proj-card h3{font-size:18px;padding:14px 20px 0;}
+  .proj-card p{font-size:13.5px;color:var(--muted);line-height:1.6;padding:8px 20px 0;flex:1;}
+  .proj-card .tag-row{padding:14px 20px 20px;}
+  .proj-links{display:flex;gap:14px;padding:0 20px 20px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;}
+  .proj-links a{color:var(--teal);border-bottom:1px solid transparent;}
+  .proj-links a:hover{border-bottom-color:var(--teal);}
+
+  /* ---------- Certifications ---------- */
+  .cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .cert-card{
+    border:1px solid var(--line);padding:22px 18px;text-align:center;
+    background:var(--paper-dim);
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+  }
+  .cert-card .stamp{--size:46px;color:var(--gold-deep);}
+  .cert-card h3{font-size:14px;line-height:1.3;}
+  .cert-card .issuer{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);}
+  .cert-card .yr{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--teal);}
+
+  /* ---------- References ---------- */
+  .ref-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;}
+  .ref-card{border:1px solid var(--line);padding:26px;background:#fff;}
+  .ref-card p.quote{font-family:'Fraunces',serif;font-style:italic;font-size:17px;line-height:1.55;margin:0 0 18px;color:var(--ink-2);}
+  .ref-who{display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);}
+  .ref-who strong{color:var(--ink);font-family:'Inter',sans-serif;display:block;font-size:13.5px;margin-bottom:2px;}
+
+  /* ---------- Contact ---------- */
+  .contact{background:var(--ink);color:var(--paper);}
+  .contact .eyebrow{color:var(--gold);}
+  .contact .section-note{color:var(--muted-ink);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .contact h2{color:var(--paper);}
+  .contact-list{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:18px;}
+  .contact-list li{display:flex;justify-content:space-between;border-bottom:1px solid var(--line-ink);padding-bottom:14px;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .contact-list li span:first-child{color:var(--muted-ink);text-transform:uppercase;letter-spacing:.08em;font-size:11px;}
+  .contact-list li a:hover{color:var(--gold);}
+  form.contact-form{display:flex;flex-direction:column;gap:14px;}
+  form.contact-form input,form.contact-form textarea{
+    background:transparent;border:1px solid var(--line-ink);color:var(--paper);
+    padding:13px 14px;font-family:'Inter',sans-serif;font-size:13.5px;
+    border-radius:var(--radius);
+  }
+  form.contact-form input::placeholder,form.contact-form textarea::placeholder{color:var(--muted-ink);}
+  form.contact-form input:focus,form.contact-form textarea:focus{outline:1px solid var(--gold);border-color:var(--gold);}
+  form.contact-form button{
+    margin-top:6px;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;
+    background:var(--gold);color:var(--ink);border:none;
+    padding:14px;cursor:pointer;letter-spacing:.03em;
+  }
+  form.contact-form button:hover{background:#dba63b;}
+  .form-msg{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gold);min-height:16px;}
+
+  footer{padding:26px 0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);}
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:980px){
+    .skills-grid{grid-template-columns:1fr 1fr;}
+    .proj-grid{grid-template-columns:1fr 1fr;}
+    .cert-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:760px){
+    nav.links{display:none;}
+    .menu-btn{display:block;}
+    .hero-grid{grid-template-columns:1fr;}
+    .id-card{max-width:340px;margin:0 auto;}
+    .about-grid,.ref-grid,.contact-grid{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr;}
+    .proj-grid{grid-template-columns:1fr;}
+    .cert-grid{grid-template-columns:1fr 1fr;}
+    .ledger-item{grid-template-columns:1fr;gap:10px;}
+    .ledger-rule{display:none;}
+    .section-note{text-align:left;}
+  }
+
+  .id-photo img {
+  width: 400px;
+  height: 430px;
+  object-fit: cover; /* Fills the frame without distortion */
+  display: block;
+}
+/* References Images--> */
+.ref-photo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.ref-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.lede {
+    text-align: justify;
+    line-height: 1.8;
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top"><span class="dot"></span>LEO ALJON E. PADILLA</a>
+    <nav class="links">
+      <a href="#about">ABOUT</a>
+      <a href="#skills">SKILLS</a>
+      <a href="#experience">EXPERIENCE</a>
+      <a href="#projects">PROJECTS</a>
+      <a href="#certifications">CERTIFICATIONS</a>
+      <a href="#references">REFERENCES</a>
+    </nav>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top" style="padding-top:72px;border-bottom:1px solid var(--line);">
+  <div class="wrap hero-grid">
+
+    <div class="hero-copy">
+      <div class="eyebrow">Verified IT Professional Profile</div>
+      <h1>A programmer writes <em>code</em>, but <em>IT Professional</em> creates possibilities.</h1>
+      <p class="lede">I'm Leo Aljon E. Padilla — an IT graduate, Computer Programming educator, 
+        and technology enthusiast dedicated to building solutions and developing future innovators. 
+        This portfolio is more than a list of skills; every claim connects to real projects, 
+        certifications, and credible references. Because great talent is not just presented — it is proven.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('experience').scrollIntoView({behavior:'smooth'})">
+          Review work history ↓
+        </button>
+        <a class="btn-secondary" href="#" id="resume-link">Download résumé (PDF)</a>
+      </div>
+
+      <div class="verify-row">
+        <div class="verify-item">
+          <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <div><div class="num">8 yrs</div><div class="label">Total Work Exp.</div></div>
+        </div>
+        <div class="verify-item">
+          <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <div><div class="num">6</div><div class="label">Certifications</div></div>
+        </div>
+       <!-- <div class="verify-item">
+          <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <div><div class="num">23</div><div class="label">Shipped Projects</div></div>
+        </div>-->
+        <div class="verify-item">
+          <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <div><div class="num">2</div><div class="label">Reference Contacts</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="id-card">
+      <div class="stamp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <div class="id-top">
+        <span>My Credentials</span>
+        <span>Status: Active</span>
+      </div>
+
+      <!-- ============================================================
+           OWNER PHOTO — REPLACE ME
+           Swap this whole .id-photo block's inner content for:
+           <img src="your-photo.jpg" alt="Alex Rivera" style="width:100%;height:100%;object-fit:cover;">
+           Recommended: a plain-background headshot, 4:4.6 ratio (portrait).
+           ============================================================ -->
+           <div class="id-photo">
+  <img id="owner-photo" src="images/lee.png" alt="Owner Photo">
+</div>
+     <!--  <div class="id-photo">
+        <svg viewBox="0 0 200 230" preserveAspectRatio="xMidYMid slice">
+          <rect width="200" height="230" fill="#16203D"/>
+          <circle cx="100" cy="92" r="40" fill="#2B3A66"/>
+          <path d="M40 230 C40 165 160 165 160 230 Z" fill="#2B3A66"/>
+          <circle cx="100" cy="92" r="40" fill="none" stroke="#445686" stroke-width="1.5"/>
+        </svg>
+        <div class="replace-tag">REPLACE WITH PHOTO — id="owner-photo"</div>
+      </div> -->
+
+      <div class="id-meta">
+        <div><span>Name</span>Leo Aljon E. Padilla</div>
+        <div><span>Role</span>IT Professional/Teacher</div>
+        <div><span>Based in</span>Nabunturan, Davao de Oro, Philippines</div>
+        <div><span>Available</span>Open to roles</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">01 — Summary</div>
+        <h2>Read this before the call.</h2>
+      </div>
+     <!-- <div class="section-note">Written for the 90 seconds a recruiter spends before deciding to keep reading.</div> -->
+    </div>
+
+    <div class="about-grid">
+      <div class="reveal">
+        <p>I build technology solutions and develop programming skills that help 
+          organizations and learners adapt to the digital world. As a Bachelor of Science in Information Technology 
+          graduate and Computer Programming Teacher at Nabunturan National Comprehensive High School, 
+          I design learning experiences, create software projects, and help students understand 
+          how technology can solve real-world problems.</p>
+        <p>I believe in building systems and solutions that are reliable, practical, 
+          and easy to understand — well-documented enough that others can learn, improve, 
+          and continue the work. Beyond teaching, I continuously explore programming, 
+          web development, databases, and emerging technologies through hands-on projects 
+          and continuous learning.</p>
+      </div>
+      <div class="reveal">
+        <ul class="creds-list">
+          <li>
+            <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            <div><strong>Education</strong>Master of Arts in Education major in Information Technology (CAR), University of the Immaculate Conception (Undergraduate)</div> 
+            <div><br>Bachelor of Science in Information Technology, ACES Tagum College (2016)</div>
+          </li>
+          <li>
+            <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            <div><strong>Background check</strong>Committed to transparency and professionalism. Available for standard employment verification, including validation of academic credentials, professional experience, and relevant certifications.</div>
+          </li>
+          <li>
+            <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            <div><strong>Right to work</strong>Philippine citizen; legally authorized to work and available for employment opportunities and professional collaborations.</div>
+          </li>
+          <li>
+            <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            <div><strong>Notice period</strong>I am currently serving as a Computer Programming Teacher and remain open to career opportunities. Availability and transition arrangements can be discussed to ensure a smooth professional transition.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">02 — Capabilities</div>
+        <h2>What I'm actually good at.</h2>
+      </div>
+      <!-- <div class="section-note">Self-rated against production usage, not tutorial completion.</div> -->
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-cat reveal">
+        <h3>Web & Frontend Development</h3>
+        <!-- <div class="skill-row"><div class="meta"><span>Go</span><span>8 yrs</span></div><div class="meter" data-fill="92"><i></i></div></div> -->
+        <div class="skill-row"><div class="meta"><span>HTML/CSS</span><span>9 yrs</span></div><div class="meter" data-fill="85"><i></i></div></div>
+        <div class="skill-row"><div class="meta"><span>JavaScript</span><span>9 yrs</span></div><div class="meter" data-fill="85"><i></i></div></div>
+       <!-- <div class="skill-row"><div class="meta"><span>MySQL</span><span>7 yrs</span></div><div class="meter" data-fill="85"><i></i></div></div> -->
+      </div>
+      <div class="skill-cat reveal">
+        <h3>Back-End & Systems Programming</h3>
+        <div class="skill-row"><div class="meta"><span>PHP</span><span>9 yrs</span></div><div class="meter" data-fill="74"><i></i></div></div>
+        <div class="skill-row"><div class="meta"><span>Python</span><span>3 yrs</span></div><div class="meter" data-fill="65"><i></i></div></div>
+        <div class="skill-row"><div class="meta"><span>Java</span><span>2 yrs</span></div><div class="meter" data-fill="20"><i></i></div></div>
+        
+        <!-- <div class="skill-row"><div class="meta"><span>Kafka</span><span>4 yrs</span></div><div class="meter" data-fill="76"><i></i></div></div> -->
+      </div>
+      <div class="skill-cat reveal">
+        <h3>Practice</h3>
+        <div class="skill-row"><div class="meta"><span>Project Lead</span><span>ICT Innovations</span></div><div class="meter" data-fill="90"><i></i></div></div>
+        <div class="skill-row"><div class="meta"><span>Application Developer</span><span>Automated E-Class</span></div><div class="meter" data-fill="85"><i></i></div></div>
+        <div class="skill-row"><div class="meta"><span>Packaging Team</span><span>2 reports </span></div><div class="meter" data-fill="82"><i></i></div></div>
+        <div class="skill-row"><div class="meta"><span>Technical Trainer</span><span>ICT LAC Session</span></div><div class="meter" data-fill="90"><i></i></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">03 — Ledger</div>
+        <h2>Where I’ve worked and what I’ve delivered.</h2>
+      </div>
+      <!-- <div class="section-note">Each entry can be cross-checked with a named manager — see References.</div> -->
+    </div>
+
+    <div class="ledger">
+      <div class="ledger-item reveal">
+        <div class="ledger-time">2017 — Present<br>Nabunturan, Davao de Oro, Philippines</div>
+        <div class="ledger-rule"></div>
+        <div class="ledger-body">
+          <h3>Public Teacher,<br> Department of Education</h3>
+          <div class="role-meta">
+            <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            Reference available: Roger H. Prades, School Principal IV
+          </div>
+          <ul>
+            <li>Designed and implemented programming lessons and technology-based learning activities that improved students' understanding of software development concepts.</li>
+            <li>Developed and integrated hands-on IT projects involving programming, databases, and system development to strengthen students' problem-solving and technical skills.</li>
+            <li>Guided and mentored students in developing programming projects, debugging solutions, and applying industry-relevant IT practices.</li>
+          </ul>
+          <div class="tag-row">
+            <!--<span class="tag">Go</span><span class="tag">Kafka</span><span class="tag">AWS</span><span class="tag">PostgreSQL</span> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-item reveal">
+        <div class="ledger-time">2016 — 2017<br>Tagum City, Davao del Norte, Philippines</div>
+        <div class="ledger-rule"></div>
+        <div class="ledger-body">
+          <h3>Administrative Assistant - Scholarship Focal & SHS Voucher Coordinator,<br> ACES Tagum College</h3>
+          <div class="role-meta">
+            <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            Reference available: Alfonso R. Ventures, College Administrator
+          </div>
+          <ul>
+            <li>Managed scholarship and Senior High School Voucher Program processes, ensuring accurate documentation, student records management, and timely submission of requirements.</li>
+            <li>Coordinated with students, parents, academic departments, and partner agencies to support efficient scholarship application and voucher processing.</li>
+            <li>Provided technical and administrative support by utilizing productivity tools, database management practices, and digital platforms for efficient operations.</li>
+          </ul>
+          <div class="tag-row">
+           <!-- <span class="tag">Python</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">Redis</span> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-item reveal">
+        <div class="ledger-time">2009 — 2016<br>Nabunturan, Davao de Oro, Philippines</div>
+        <div class="ledger-rule"></div>
+        <div class="ledger-body">
+          <h3>Administrative Assistant - Records/Document-In-Charge,<br>ACES Technical Institute of Nabunturan Foundation, Inc.</h3>
+          <div class="role-meta">
+            <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            Reference available: Angela R. Lasaca, College Administrator
+          </div>
+          <ul>
+            <li>Managed institutional records, documents, and administrative files, ensuring accuracy, proper organization, and compliance with documentation requirements.</li>
+            <li>Prepared reports, maintained databases, and coordinated document-related activities to support institutional operations.</li>
+            <li>Assisted faculty, administrators, and stakeholders by providing reliable administrative support and ensuring timely processing of important records.</li>
+          </ul>
+          <div class="tag-row">
+           <!-- <span class="tag">Java</span><span class="tag">Spring</span><span class="tag">MySQL</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">04 — Evidence</div>
+        <h2>Built projects you can run and review.</h2>
+      </div>
+      <!-- <div class="section-note">Live links and public repos — no NDA-protected screenshots.</div> -->
+    </div>
+
+    <div class="proj-grid">
+      <div class="proj-card reveal">
+        <div class="proj-top">
+          <h3 style="padding:0;">SHS Automated SF-10</h3>
+          <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        </div>
+        <p>An offline system made from MS Excel that streamlines the creation, management, and printing of Senior High School Form 10 records, improving accuracy and reducing manual documentation tasks.</p>
+        <div class="tag-row"><span class="tag">Microsoft</span><span class="tag">MS Excel</span></div>
+       <!-- <div class="proj-links"><a href="#">GitHub →</a><a href="#">Docs →</a></div> -->
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-top">
+          <h3 style="padding:0;">Computer Laboratory Access and Utilization Tracking System (CLAUTS)</h3>
+          <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        </div>
+        <p>A monitoring system designed to record user access, track computer laboratory usage, and analyze resource utilization to improve laboratory management and efficiency.</p>
+        <div class="tag-row"><span class="tag">Visual Studio</span><span class="tag">Visual Basic</span></div>
+        <!-- <div class="proj-links"><a href="#">Live demo →</a><a href="#">GitHub →</a></div> -->
+      </div>
+      <!--
+      <div class="proj-card reveal">
+        <div class="proj-top">
+          <h3 style="padding:0;">Billing migration</h3>
+          <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        </div>
+        <p>Case study write-up: how Solara Health's billing system moved to event-driven architecture with zero missed cycles.</p>
+        <div class="tag-row"><span class="tag">Case study</span><span class="tag">Architecture</span></div>
+        <div class="proj-links"><a href="#">Read writeup →</a></div>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<!-- ============ CERTIFICATIONS ============ -->
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">05 — Credentials</div>
+        <h2>Certifications on file.</h2>
+      </div>
+     <!-- <div class="section-note">All issued under legal name; license numbers shared on request.</div> -->
+    </div>
+
+    <div class="cert-grid">
+      <div class="cert-card reveal">
+        <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        <h3>AWS Solutions Architect — Professional</h3>
+        <div class="issuer">Amazon Web Services</div>
+        <div class="yr">2023</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        <h3>Certified Kubernetes Administrator</h3>
+        <div class="issuer">CNCF</div>
+        <div class="yr">2022</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        <h3>HashiCorp Terraform Associate</h3>
+        <div class="issuer">HashiCorp</div>
+        <div class="yr">2021</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        <h3>Professional Scrum Master I</h3>
+        <div class="issuer">Scrum.org</div>
+        <div class="yr">2020</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REFERENCES ============ -->
+<section id="references">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">06 — Witness statements</div>
+        <h2>People who'll take your call.</h2>
+      </div>
+      <!--<div class="section-note">Contact details shared directly with verified recruiters on request.</div>-->
+    </div>
+
+    <div class="ref-grid">
+
+      <!-- Reference 1 -->
+      <div class="ref-card reveal">
+        <div class="ref-photo">
+          <img src="images/leah.png" alt="Leah R. Guirigay">
+        </div>
+
+        <!--<p class="quote">
+          "Alex is the engineer I'd call at 2am during an outage — calm,
+          methodical, and always leaves the system better documented than they found it."
+        </p>-->
+
+        <div class="ref-who">
+          <div>
+            <strong>Leah R. Guirigay</strong>
+            <br>
+            Administrative Officer V - Davao de Oro State College <br>
+             leah.guirigay@ddosc.edu.ph <br>
+            +63 918 682 6922
+          </div>
+          <!--<span>Direct manager</span>-->
+        </div>
+      </div>
+
+
+      <!-- Reference 2 -->
+      <div class="ref-card reveal">
+        <div class="ref-photo">
+          <img src="images/arellano.jpg" alt="Ritchel H. Arellano">
+        </div>
+
+        <!--<p class="quote">
+          "Cut our infrastructure costs by a third without anyone noticing
+          a dip in reliability. That's rare, and it's exactly what you want on a team."
+        </p> -->
+
+        <div class="ref-who">
+          <div>
+            <strong>Ritchel H. Arellano</strong>
+            <br>
+            Accountant II - Davao de Oro State College <br>
+            rjharellano@gmail.com <br>
+            +63 960 640 3160
+          </div>
+          <!--<span>rjharellano@gmail.com</span>
+          <span>+63 960 640 3160</span>-->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">07 — Next step</div>
+        <h2>Open a conversation.</h2>
+      </div>
+      <div class="section-note">Typically replies within one business day.</div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="reveal">
+        <p style="color:var(--muted-ink);font-size:15px;line-height:1.7;max-width:420px;">
+          Considering me for a role, or just want to confirm something on this page?
+          Reach out directly — every channel below is checked daily.
+        </p>
+        <ul class="contact-list">
+          <li><span>Email</span><a href="leoaljon.padilla@gmail.com">leoaljon.padilla@gmail.com</a></li>
+          <li><span>Phone</span><a href="tel:+639672989591">+63 967 298 9591</a></li>
+          <li><span>LinkedIn</span><a href="#">linkedin.com/in/leo-aljon-padilla-6b1522308</a></li>
+          <!--<li><span>GitHub</span><a href="#">github.com/alexrivera</a></li> -->
+        </ul>
+      </div>
+      <form class="contact-form reveal" id="contactForm">
+        <input type="text" placeholder="Your name" required>
+        <input type="text" placeholder="Company / organization">
+        <input type="email" placeholder="Email address" required>
+        <textarea rows="4" placeholder="What would you like to ask or discuss?" required></textarea>
+        <button type="submit">Send message</button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Leo Aljon Padilla. Built as a verifiable record, not a sales pitch.
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12});
+  reveals.forEach(el=>io.observe(el));
+
+  // Animate skill meters when visible
+  const meters = document.querySelectorAll('.meter');
+  const mio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        el.classList.add('filled');
+        el.querySelector('i').style.width = el.dataset.fill + '%';
+        mio.unobserve(el);
+      }
+    });
+  }, {threshold:.4});
+  meters.forEach(m=>mio.observe(m));
+
+  // Mock contact form (replace action with real backend / Formspree / mailto as needed)
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formMsg').textContent = 'Message captured — connect a backend (e.g. Formspree) to send it for real.';
+    this.reset();
+  });
+
+  // Résumé link placeholder
+  document.getElementById('resume-link').addEventListener('click', function(e){
+    e.preventDefault();
+    alert('Add your résumé PDF to the project and point this link at it, e.g. href="resume.pdf"');
+  });
+</script>
+
+</body>
+</html>
